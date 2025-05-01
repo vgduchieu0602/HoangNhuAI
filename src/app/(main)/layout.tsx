@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Image from "next/image";
+
+import Sidebar from "@/app/components/Sidebar";
+
+import { SidebarContextProvider } from "@/app/context/SidebarContext";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -19,18 +22,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${inter.className} antialiased`}>
-        <div className="flex h-screen">
-          {/** Sidebar */}
-          <div>
-            <div>
-              <Image />
-            </div>
-          </div>
-        </div>
-        {children}
+    <SidebarContextProvider>
+      <html lang="en">
+        <body className={`${inter.className} antialiased`}>
+          <main className="flex h-screen">
+            <Sidebar />
+            {children}
+          </main>
         </body>
-    </html>
+      </html>
+    </SidebarContextProvider>
   );
 }
