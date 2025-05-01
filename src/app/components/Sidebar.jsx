@@ -4,14 +4,17 @@ import React from "react";
 import Image from "next/image";
 
 import logo2 from "../assets/logo-2.png";
+import newIcon from "../assets/new_icon.svg";
+import qrCode from "../assets/qrcode.png";
 
 import { useSidebarContext } from "../context/SidebarContext";
 
 import { Menu } from "lucide-react";
 import { PanelRightOpen } from "lucide-react";
 import { PanelLeftOpen } from "lucide-react";
-import { MessageSquareHeart } from "lucide-react";
 import { MessagesSquare } from "lucide-react";
+import { QrCode } from "lucide-react";
+import { CircleUser } from "lucide-react";
 
 const Sidebar = () => {
   const { expand, setExpand } = useSidebarContext();
@@ -73,6 +76,57 @@ const Sidebar = () => {
           </div>
           {expand && <p className="text-white text font-medium">New Chat</p>}
         </button>
+
+        <div
+          className={`mt-8 text-white/25 text-sm ${
+            expand ? "block" : "hidden"
+          }`}
+        >
+          <p className="my-1">Recents</p>
+          {/* chatLabel */}
+        </div>
+      </div>
+
+      <div>
+        <div
+          className={`flex items-center cursor-pointer group relative text-white ${
+            expand
+              ? "gap-1 text-sm p-2.5 border border-primary rounded-lg hover:bg-white/10 cursor-pointer"
+              : "h-10 w-10 mx-auto hover:bg-gray-500/30 rounded-lg"
+          }`}
+        >
+          <QrCode className={expand ? "w-8 h-8" : "w-8 h-8 mx-auto"} />
+          <div
+            className={`absolute -top-60 pb-8 ${
+              !expand && "-right-40"
+            } opacity-0 group-hover:opacity-100 hidden group-hover:block transition`}
+          >
+            <div className="relative w-max bg-black text-white text-sm p-3 rounded-lg shadow-lg">
+              <Image src={qrCode} alt="qrcode" height={180} width={180} />
+              <p>Scan to download</p>
+              <div
+                className={`w-3 h-3 absolute bg-black rotate-45 ${
+                  expand ? "right-1/2" : "left-4"
+                } -bottom-1.5`}
+              ></div>
+            </div>
+          </div>
+          {expand && (
+            <>
+              <span>Get App</span>{" "}
+              <Image src={newIcon} alt="New Icon" height={30} width={30} />
+            </>
+          )}
+        </div>
+
+        <div
+          className={`flex items-center ${
+            expand ? "hover:bg-white/10 rounded-lg" : "justify-center w-full"
+          } gap-3 text-white text-sm p-2 mt-2 cursor-pointer`}
+        >
+          <CircleUser className="h-8 w-8" />
+          {expand && <span>Profile</span>}
+        </div>
       </div>
     </div>
   );
