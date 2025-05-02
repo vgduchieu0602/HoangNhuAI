@@ -3,6 +3,8 @@
 import { useState } from "react";
 import Image from "next/image";
 
+import PromptBox from "@/app/components/PromptBox";
+
 import logo from "../assets/logo.jpg";
 import logo2 from "../assets/logo-2.png";
 
@@ -40,6 +42,7 @@ export default function Home() {
         )}
 
         {/* Prompt box */}
+        <PromptBox isLoading={isLoading} setIsLoading={setIsLoading} />
 
         <p className="text-xs absolute bottom-1 text-gray-500">
           AI-generated, for reference only
