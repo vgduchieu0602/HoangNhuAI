@@ -1,11 +1,13 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 
 import logo2 from "../assets/logo-2.png";
 import newIcon from "../assets/new_icon.svg";
 import qrCode from "../assets/qrcode.png";
+
+import ChatLabel from "@/app/components/ChatLabel";
 
 import { useSidebarContext } from "../context/SidebarContext";
 import { useAppContext } from "../context/AppContext";
@@ -23,6 +25,8 @@ const Sidebar = () => {
   const { expand, setExpand } = useSidebarContext();
   const { openSignIn } = useClerk();
   const { user } = useAppContext();
+  const [openMenu, setOpenMenu] = useState({ id: 0, open: false });
+
   return (
     <div className="flex flex-col justify-between bg-[#212327] px-5 py-7 transition-all z-50 max-md:absolute max-md:h-screen max-md:overflow-hidden">
       <div>
@@ -89,6 +93,7 @@ const Sidebar = () => {
         >
           <p className="my-1">Recents</p>
           {/* chatLabel */}
+          <ChatLabel openMenu={openMenu} setOpenMenu={setOpenMenu} />
         </div>
       </div>
 
