@@ -8,6 +8,7 @@ import { SendHorizontal } from "lucide-react";
 
 const PromptBox = ({ isLoading, setIsLoading }) => {
   const [prompt, setPrompt] = useState("");
+
   return (
     <form
       className={`w-full ${

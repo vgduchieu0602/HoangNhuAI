@@ -8,6 +8,9 @@ import newIcon from "../assets/new_icon.svg";
 import qrCode from "../assets/qrcode.png";
 
 import { useSidebarContext } from "../context/SidebarContext";
+import { useAppContext } from "../context/AppContext";
+
+import { useClerk, UserButton } from "@clerk/nextjs";
 
 import { Menu } from "lucide-react";
 import { PanelRightOpen } from "lucide-react";
@@ -18,6 +21,8 @@ import { CircleUser } from "lucide-react";
 
 const Sidebar = () => {
   const { expand, setExpand } = useSidebarContext();
+  const { openSignIn } = useClerk();
+  const { user } = useAppContext();
   return (
     <div className="flex flex-col justify-between bg-[#212327] px-5 py-7 transition-all z-50 max-md:absolute max-md:h-screen max-md:overflow-hidden">
       <div>
@@ -120,11 +125,12 @@ const Sidebar = () => {
         </div>
 
         <div
+          onClick={user ? null : openSignIn}
           className={`flex items-center ${
             expand ? "hover:bg-white/10 rounded-lg" : "justify-center w-full"
           } gap-3 text-white text-sm p-2 mt-2 cursor-pointer`}
         >
-          <CircleUser className="h-8 w-8" />
+          {user ? <UserButton /> : <CircleUser className="h-8 w-8" />}
           {expand && <span>Profile</span>}
         </div>
       </div>

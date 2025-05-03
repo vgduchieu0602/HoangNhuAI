@@ -5,6 +5,8 @@ import "./globals.css";
 import Sidebar from "@/app/components/Sidebar";
 
 import { SidebarContextProvider } from "@/app/context/SidebarContext";
+import { AppContextProvider } from "@/app/context/AppContext";
+import { ClerkProvider } from "@clerk/nextjs";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -22,15 +24,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <SidebarContextProvider>
-      <html lang="en">
-        <body className={`${inter.className} antialiased`}>
-          <main className="flex h-screen">
-            <Sidebar />
-            {children}
-          </main>
-        </body>
-      </html>
-    </SidebarContextProvider>
+    <ClerkProvider>
+      <AppContextProvider>
+        <SidebarContextProvider>
+          <html lang="en">
+            <body className={`${inter.className} antialiased`}>
+              <main className="flex h-screen">
+                <Sidebar />
+                {children}
+              </main>
+            </body>
+          </html>
+        </SidebarContextProvider>
+      </AppContextProvider>
+    </ClerkProvider>
   );
 }
