@@ -6,7 +6,6 @@ import Image from "next/image";
 import PromptBox from "@/app/components/PromptBox";
 import Message from "@/app/components/Message";
 
-import logo from "../assets/logo.jpg";
 import logo2 from "../assets/logo-2.png";
 
 import { useSidebarContext } from "@/app/context/SidebarContext";
