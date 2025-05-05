@@ -1,16 +1,18 @@
 import { Webhook } from "svix";
-import connectDB from "@/app/config/db";
-import User from "@/app/models/User";
-import { headers } from "next/headers";
+import connectDB from "@/config/db";
+import User from "@/models/User";
 import { NextResponse } from "next/server";
+import { headers } from "next/headers";
 
 export async function POST(req) {
   const wh = new Webhook(process.env.SIGNING_SECRET);
-  const headerPayload = await headers;
+  const headerPayload = await headers();
   const svixHeaders = {
     "svix-id": headerPayload.get("svix-id"),
+    "svix-timestamp": headerPayload.get("svix-timestamp"),
     "svix-signature": headerPayload.get("svix-signature"),
   };
+  //update
 
   //Get the payload and verify it
   const payload = await req.json();
@@ -35,9 +37,8 @@ export async function POST(req) {
       await User.findByIdAndUpdate(data.id, userData);
       break;
     case "user.deleted":
-      await User.findByIdAndDelete(data.id);
+      await User.findByIdAndDelete(data.id, userData);
       break;
-
     default:
       break;
   }
