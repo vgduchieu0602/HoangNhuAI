@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
+import { Toaster } from "react-hot-toast";
+
 import Sidebar from "@/app/components/Sidebar";
 
 import { SidebarContextProvider } from "@/app/context/SidebarContext";
@@ -30,6 +32,12 @@ export default function RootLayout({
           <html lang="en">
             <body className={`${inter.className} antialiased`}>
               <main className="flex h-screen">
+                <Toaster toastOptions={
+                  {
+                    success: {style: {background:"black", color: "white"}},
+                    error: {style: {background:"black", color: "white"}},
+                  }
+                } />
                 <Sidebar />
                 {children}
               </main>

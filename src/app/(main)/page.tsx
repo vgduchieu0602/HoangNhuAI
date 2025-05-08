@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 
 import PromptBox from "@/app/components/PromptBox";
@@ -12,11 +12,14 @@ import { useSidebarContext } from "@/app/context/SidebarContext";
 
 import { Menu } from "lucide-react";
 import { MessageSquareHeart } from "lucide-react";
+import { useAppContext } from "@/app/context/AppContext";
 
 export default function Home() {
   const { expand, setExpand } = useSidebarContext();
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const { selectedChat } = useAppContext();
+  const containerRef = useRef(null);
 
   return (
     <>
@@ -38,7 +41,7 @@ export default function Home() {
             <p className="text-sm mt-2">How can I help you today?</p>
           </>
         ) : (
-          <div>
+          <div ref={containerRef}>
             <Message role="user" content="What's NextJS" />
           </div>
         )}
