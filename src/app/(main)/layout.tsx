@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import "./prism.css";
 
 import { Toaster } from "react-hot-toast";
 
@@ -32,12 +33,12 @@ export default function RootLayout({
           <html lang="en">
             <body className={`${inter.className} antialiased`}>
               <main className="flex h-screen">
-                <Toaster toastOptions={
-                  {
-                    success: {style: {background:"black", color: "white"}},
-                    error: {style: {background:"black", color: "white"}},
-                  }
-                } />
+                <Toaster
+                  toastOptions={{
+                    success: { style: { background: "black", color: "white" } },
+                    error: { style: { background: "black", color: "white" } },
+                  }}
+                />
                 <Sidebar />
                 {children}
               </main>

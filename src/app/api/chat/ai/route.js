@@ -53,6 +53,15 @@ export async function POST(req) {
 
     //Lấy câu trả lời từ AI
     const message = completion.choices[0].message;
+
+    // Kiểm tra nếu không có câu trả lời
+    if (!message || !message.content) {
+      return NextResponse.json({
+        success: false,
+        message: "AI không thể tạo câu trả lời. Vui lòng thử lại sau.",
+      });
+    }
+
     message.timestamp = Date.now();
 
     //Lưu câu trả lời vào db

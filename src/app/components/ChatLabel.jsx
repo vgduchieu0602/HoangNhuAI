@@ -4,7 +4,47 @@ import { Ellipsis } from "lucide-react";
 import { SquarePen } from "lucide-react";
 import { Trash2 } from "lucide-react";
 
-const ChatLabel = ({ openMenu, setOpenMenu }) => {
+import { useAppContext } from "../context/AppContext";
+
+const ChatLabel = ({ openMenu, setOpenMenu, id, name }) => {
+  const { fetchUsersChats, chats, setSelectedChat } = useAppContext();
+
+  const selectChat = () => {
+    const chatData = chats.find((chat) => chat._id === id);
+    setSelectedChat(chatData);
+    console.log(chatData);
+  };
+
+  const renameHandler = async () => {
+    try {
+      const newName = prompt("Enter new name: ");
+      if (!newName) return;
+      const { data } = await axios.post("/api/chat/rename", {
+        chatId: id,
+        name: newName,
+      });
+      if (data.success) {
+        fetchUsersChats();
+        setOpenMenu({ id: 0, open: false });
+        toast.success(data.message);
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
+  const deleteHandler = async () => {
+    try {
+      const confirm = window.comfirm(
+        "Are you sure you want to delete this chat?"
+      );
+      if (!confirm) return;
+      const { data } = await axios.post();
+    } catch (error) {}
+  };
+
   return (
     <div className="flex items-center justify-between p-2 text-white/80 hover:bg-white/10 rounded-lg text-sm group cursor-pointer">
       <p className="group-hover:max-w-5/6 truncate">Chat Name Here</p>

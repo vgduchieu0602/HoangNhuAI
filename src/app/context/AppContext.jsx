@@ -80,8 +80,6 @@ export const AppContextProvider = ({ children }) => {
     }
   };
 
-  console.log("User:", user);
-
   //Tự động lấy danh sách chat khi người dùng đăng nhập
   useEffect(() => {
     if (user) {

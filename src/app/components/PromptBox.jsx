@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import axios from "axios";
 
 import { useAppContext } from "../context/AppContext";
 
@@ -62,10 +63,13 @@ const PromptBox = ({ isLoading, setIsLoading }) => {
       );
 
       //Saving user prompt in selected chat
-      setSelectedChat((prev) => ({
-        ...prev,
-        messages: [...prev.messages, userPrompt],
-      }));
+      setSelectedChat((prev) => {
+        if (!prev) return null;
+        return {
+          ...prev,
+          messages: [...prev.messages, userPrompt],
+        };
+      });
 
       const { data } = await axios.post("/api/chat/ai", {
         chatId: selectedChat._id,
@@ -122,7 +126,7 @@ const PromptBox = ({ isLoading, setIsLoading }) => {
     <form
       onSubmit={sendPrompt}
       className={`w-full ${
-        false ? "max-w-3xl" : "max-w-2xl"
+        selectedChat?.messages.length > 0 ? "max-w-3xl" : "max-w-2xl"
       } bg-[#404045] p-4 rounded-3xl mt-4 transition-all`}
     >
       <textarea

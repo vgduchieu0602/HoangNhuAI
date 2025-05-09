@@ -4,6 +4,8 @@ import Image from "next/image";
 
 import logo2 from "../assets/logo-2.png";
 
+import Markdown from "react-markdown";
+
 import { Copy } from "lucide-react";
 import { Pencil } from "lucide-react";
 import { RotateCw } from "lucide-react";
@@ -11,6 +13,15 @@ import { ThumbsUp } from "lucide-react";
 import { ThumbsDown } from "lucide-react";
 
 const Message = ({ role, content }) => {
+  useEffect(() => {
+    Prism.highlightAll();
+  }, [content]);
+
+  const copyMessage = () => {
+    navigator.clipboard.writeText(content);
+    toast.success("Copied to clipboard");
+  };
+
   return (
     <div className="flex flex-col items-center w-full max-w-3xl text-sm">
       <div
@@ -31,12 +42,12 @@ const Message = ({ role, content }) => {
             <div className="flex items-center gap-2 opacity-70">
               {role === "user" ? (
                 <>
-                  <Copy className="text-sm w-5 h-5" />
+                  <Copy onClick={copyMessage} className="text-sm w-5 h-5" />
                   <Pencil className="text-sm w-5 h-5" />
                 </>
               ) : (
                 <>
-                  <Copy className="text-sm w-5 h-5" />
+                  <Copy onClick={copyMessage} className="text-sm w-5 h-5" />
                   <RotateCw className="text-sm w-5 h-5" />
                   <ThumbsUp className="text-sm w-5 h-5" />
                   <ThumbsDown className="text-sm w-5 h-5" />
@@ -56,7 +67,9 @@ const Message = ({ role, content }) => {
                 height={60}
                 className="h-9 w-9 p-1 border border-white/15 rounded-full"
               />
-              <div className="space-y-4 w-full overflow-scroll">{content}</div>
+              <div className="space-y-4 w-full overflow-scroll">
+                <Markdown>{content}</Markdown>
+              </div>
             </>
           )}
         </div>
