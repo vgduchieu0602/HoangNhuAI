@@ -6,21 +6,28 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "seed": "ts-node src/app/script/loadDB.ts",
     "lint": "next lint"
   },
   "dependencies": {
     "@clerk/nextjs": "^6.18.5",
+    "@datastax/astra-db-ts": "^2.0.1",
     "axios": "^1.9.0",
+    "dotenv": "^16.5.0",
+    "langchain": "^0.3.24",
+    "@langchain/community": "^0.3.40",
+    "@langchain/core": "^0.3.44",
     "lucide-react": "^0.503.0",
     "mongoose": "^8.14.1",
     "next": "14.1.0",
-    "openai": "^4.97.0",
+    "openai": "^4.98.0",
     "prismjs": "^1.30.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.5.2",
     "react-markdown": "^10.1.0",
-    "svix": "^1.64.1"
+    "svix": "^1.64.1",
+    "ts-node": "^10.9.2"
   },
   "devDependencies": {
     "typescript": "^5.3.3",
