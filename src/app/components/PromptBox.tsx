@@ -43,6 +43,9 @@ const PromptBox = ({ isLoading, setIsLoading }) => {
       if (isLoading) {
         return toast.error("Wait for the previous prompt response");
       }
+      if (!selectedChat) {
+        return toast.error("Please select a chat first");
+      }
 
       setIsLoading(true);
       setPrompt("");

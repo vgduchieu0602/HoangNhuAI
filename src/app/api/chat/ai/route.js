@@ -1,12 +1,13 @@
 export const maxDuration = 60; //Giới hạn thời gian xử lý request là 60s
 import OpenAI from "openai";
 import { getAuth } from "@clerk/nextjs/server";
+import { NextResponse } from "next/server";
 import Chat from "@/app/models/Chat";
 import connectDB from "@/app/config/db";
 
 //Initialize the OpenAI client with Deepseek API key and base URL
 const openai = new OpenAI({
-  baseURL: "https://api.deepseek.com",
+  baseURL: "https://api.deepseek.com/v1",
   apiKey: process.env.DEEPSEEK_API_KEY,
 });
 
@@ -46,8 +47,10 @@ export async function POST(req) {
     console.log("Calling Deepseek API...");
     const completion = await openai.chat.completions.create({
       messages: [{ role: "user", content: prompt }],
-      model: "deepseek-chat",
-      store: true,
+      model: "deepseek-chat-1.0",
+      temperature: 0.7,
+      max_tokens: 2000,
+      stream: false,
     });
     console.log("Deepseek API response:", completion);
 

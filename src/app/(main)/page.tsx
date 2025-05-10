@@ -3,16 +3,15 @@
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 
-import PromptBox from "@/app/components/PromptBox";
-import Message from "@/app/components/Message";
+import PromptBox from "../components/PromptBox";
+import Message from "../components/Message";
 
 import logo2 from "../assets/logo-2.png";
 
-import { useSidebarContext } from "@/app/context/SidebarContext";
+import { useSidebarContext } from "../context/SidebarContext";
+import { useAppContext } from "../context/AppContext";
 
-import { Menu } from "lucide-react";
-import { MessageSquareHeart } from "lucide-react";
-import { useAppContext } from "@/app/context/AppContext";
+import { Menu, MessageSquareHeart } from "lucide-react";
 
 interface Message {
   role: string;

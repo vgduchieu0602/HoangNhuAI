@@ -1,18 +1,18 @@
-import React from "react";
-
+import React, { useEffect } from "react";
 import Image from "next/image";
-
 import logo2 from "../assets/logo-2.png";
-
 import Markdown from "react-markdown";
+import { Copy, Pencil, RotateCw, ThumbsUp, ThumbsDown } from "lucide-react";
+import toast from "react-hot-toast";
+import Prism from "prismjs";
+import "prismjs/themes/prism.css";
 
-import { Copy } from "lucide-react";
-import { Pencil } from "lucide-react";
-import { RotateCw } from "lucide-react";
-import { ThumbsUp } from "lucide-react";
-import { ThumbsDown } from "lucide-react";
+interface MessageProps {
+  role: string;
+  content: string;
+}
 
-const Message = ({ role, content }) => {
+const Message: React.FC<MessageProps> = ({ role, content }) => {
   useEffect(() => {
     Prism.highlightAll();
   }, [content]);
